@@ -11,11 +11,20 @@ import UIKit
 class CalculatorViewController: UIViewController {
     
     @IBOutlet weak var billTextField: UITextField!
-    @IBOutlet weak var zeroPcButton: UIButton!
-    @IBOutlet weak var tenPcButton: UIButton!
-    @IBOutlet weak var twentyPcButton: UIButton!
+    @IBOutlet weak var zeroPctButton: UIButton!
+    @IBOutlet weak var tenPctButton: UIButton!
+    @IBOutlet weak var twentyPctButton: UIButton!
     
     @IBAction func tipChanged(_ sender: UIButton) {
+        
+        zeroPctButton.isSelected = false
+        tenPctButton.isSelected = false
+        twentyPctButton.isSelected = false
+                
+        //Make the button that triggered the IBAction selected.
+        sender.isSelected = true
+            
+        
     }
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
@@ -24,12 +33,7 @@ class CalculatorViewController: UIViewController {
     
     @IBAction func calculatePressed(_ sender: UIButton) {
     }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
+
 
 
 }
