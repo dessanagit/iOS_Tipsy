@@ -19,7 +19,8 @@ class CalculatorViewController: UIViewController {
     // Tracker to print the value when the calculate button got pressed.
     //// it's mandatory to select one of the tip options, in order to 'substitute' the value
     var tip = 0.0
-    var splitNumber = String(0.0)
+    var splitNumber = 0.0
+    var billText = "0"
     
     @IBAction func tipChanged(_ sender: UIButton) {
         
@@ -42,22 +43,41 @@ class CalculatorViewController: UIViewController {
         tip = buttonNameAsADouble / 100
             
         
+        
+        // BILL TEXT FIELD
+        billText = billTextField.text!
+        billTextField.endEditing(true) /// close the keyboard field when the user stops editing
+                
     }
     
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
         
         // Increases/decreases the number of people to split the amount.
-        splitNumber = String(format: "%.f", sender.value)
-        splitNumberLabel.text = splitNumber
+        splitNumber = sender.value
+        splitNumberLabel.text = String(format: "%.f", sender.value)
         
     }
     
     
     @IBAction func calculatePressed(_ sender: UIButton) {
         
-        print(tip)
-        print(splitNumber)
+        // Transform String into Double
+        let doubleBillText = Double(billText)!
+        // Adding the % to calculate the total amount
+        let adjustedTip = 1 + tip
+        
+        // CALCULATING BILL
+            /// Calculates the total amount
+        let addPc = (doubleBillText * adjustedTip)
+            /// Total amount for each person
+        let totalAmount = String(format: "%.2f", addPc/splitNumber)
+        
+        
+        print("tip: \(tip)")
+        print("splitNumber: \(splitNumber.rounded())")
+        print("billText: \(billText)")
+        print("totalAmount: \(totalAmount)")
     }
 
 
