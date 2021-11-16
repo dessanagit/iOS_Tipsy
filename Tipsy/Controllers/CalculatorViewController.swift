@@ -14,11 +14,12 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var zeroPctButton: UIButton!
     @IBOutlet weak var tenPctButton: UIButton!
     @IBOutlet weak var twentyPctButton: UIButton!
-    
+    @IBOutlet weak var splitNumberLabel: UILabel!
     
     // Tracker to print the value when the calculate button got pressed.
     //// it's mandatory to select one of the tip options, in order to 'substitute' the value
     var tip = 0.0
+    var splitNumber = String(0.0)
     
     @IBAction func tipChanged(_ sender: UIButton) {
         
@@ -45,12 +46,18 @@ class CalculatorViewController: UIViewController {
     
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
+        
+        // Increases/decreases the number of people to split the amount.
+        splitNumber = String(format: "%.f", sender.value)
+        splitNumberLabel.text = splitNumber
+        
     }
     
     
     @IBAction func calculatePressed(_ sender: UIButton) {
         
         print(tip)
+        print(splitNumber)
     }
 
 
