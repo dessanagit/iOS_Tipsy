@@ -74,6 +74,8 @@ class CalculatorViewController: UIViewController {
         let totalAmount = String(format: "%.2f", addPc/splitNumber)
         
         
+        performSegue(withIdentifier: "goToResult", sender: self)
+        
         print("tip: \(tip)")
         print("splitNumber: \(splitNumber.rounded())")
         print("billText: \(billText)")
