@@ -295,7 +295,7 @@
                     </view>
                     <connections>
                         <outlet property="settingsLabel" destination="HGt-bn-sCv" id="X1I-4Y-LaV"/>
-                        <outlet property="totalLabel" destination="HGt-bn-sCv" id="dHd-Ls-mrf"/>
+                        <outlet property="totalLabel" destination="uLJ-ii-hft" id="jnm-Bn-347"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uLi-Eb-NGd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

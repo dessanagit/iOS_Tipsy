@@ -10,7 +10,8 @@ import UIKit
 
 struct Bill {
     
-    let tip: Double
-    let splitNumber: Double
-    let billText: String
+    let totalAmount: String
+    let percentage: String
+    let numberPeople: String
+
 }

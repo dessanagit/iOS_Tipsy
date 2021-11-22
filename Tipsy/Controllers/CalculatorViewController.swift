@@ -16,11 +16,15 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var twentyPctButton: UIButton!
     @IBOutlet weak var splitNumberLabel: UILabel!
     
+
+    // Call structure
+    var calculatorBrain = CalculatorBrain()
+    
+    
     // Tracker to print the value when the calculate button got pressed.
     //// it's mandatory to select one of the tip options, in order to 'substitute' the value
     var tip = 0.0
-    var splitNumber = 0.0
-    var billText = "0"
+    
     
     @IBAction func tipChanged(_ sender: UIButton) {
         
@@ -35,7 +39,7 @@ class CalculatorViewController: UIViewController {
         // Getting button name and removes the last character.
         var buttonName = sender.currentTitle!
         buttonName.removeLast()
-        
+
         
         // How much tip to apply
         /// Transforming buttonName into a Double and divides by 100 to show decimal places results.
@@ -45,7 +49,6 @@ class CalculatorViewController: UIViewController {
         
         
         // BILL TEXT FIELD
-        billText = billTextField.text!
         billTextField.endEditing(true) /// close the keyboard field when the user stops editing
                 
     }
@@ -54,7 +57,7 @@ class CalculatorViewController: UIViewController {
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
         
         // Increases/decreases the number of people to split the amount.
-        splitNumber = sender.value
+
         splitNumberLabel.text = String(format: "%.f", sender.value)
         
     }
@@ -62,27 +65,30 @@ class CalculatorViewController: UIViewController {
     
     @IBAction func calculatePressed(_ sender: UIButton) {
         
-        // Transform String into Double
-        let doubleBillText = Double(billText)!
-        // Adding the % to calculate the total amount
-        let adjustedTip = 1 + tip
+        let billText = billTextField.text!
+        let splitNumber = splitNumberLabel.text!
         
-        // CALCULATING BILL
-            /// Calculates the total amount
-        let addPc = (doubleBillText * adjustedTip)
-            /// Total amount for each person
-        let totalAmount = String(format: "%.2f", addPc/splitNumber)
+        calculatorBrain.calculateBill(tip: tip, splitNumber: splitNumber, billText: billText)
         
         
-        performSegue(withIdentifier: "goToResult", sender: self)
         
-        print("tip: \(tip)")
-        print("splitNumber: \(splitNumber.rounded())")
-        print("billText: \(billText)")
-        print("totalAmount: \(totalAmount)")
+        self.performSegue(withIdentifier: "goToResult", sender: self)
+        
     }
-
-
-
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToResult" {
+            let destinationVC = segue.destination as! ResultsViewController
+            destinationVC.totalAmount = calculatorBrain.getTotalAmount()
+            destinationVC.billPercentage = calculatorBrain.getPercentage()
+            destinationVC.numberOfPeople = calculatorBrain.numberOfPeople()
+        }
+    }
+    
 }
+
+
+
+
 
